@@ -20,7 +20,7 @@ def test_model_parameters():
     """Test that the model has the expected number of parameters."""
     model = MyAwesomeModel()
     total_params = sum(p.numel() for p in model.parameters())
-
+    a = 1
     print(f"Total model parameters: {total_params}")
     # Adjust the expected value to the correct one (249,162).
     assert total_params == 249_162, "Unexpected number of model parameters"
