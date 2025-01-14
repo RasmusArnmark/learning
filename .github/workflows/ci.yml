@@ -44,7 +44,7 @@ jobs:
         run: mkdir -p data/processed
 
       - name: Preprocess Data
-        run: python -m src.data --raw-dir data/raw --processed-dir data/processed
+        run: python -m src.data preprocess-data --raw-dir data/raw --processed-dir data/processed
         
       - name: Run tests
         run: pytest tests --cov=src --cov-report=xml
