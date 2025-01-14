@@ -41,7 +41,7 @@ jobs:
           gsutil cp -r gs://learningras/data/raw data/raw    
           
       - name: Preprocess Data
-        run: python -m src.data preprocess-data
+        run: python -m src.data
         
       - name: Run tests
         run: pytest tests --cov=src --cov-report=xml
