@@ -1,6 +1,7 @@
 import torch
 import typer
 
+# Initialize Typer app
 app = typer.Typer()
 
 def normalize(images: torch.Tensor) -> torch.Tensor:
@@ -9,7 +10,7 @@ def normalize(images: torch.Tensor) -> torch.Tensor:
 
 @app.command()
 def preprocess_data(raw_dir: str = "data/raw", processed_dir: str = "data/processed") -> None:
-    """Process raw data and save it to processed directory."""
+    """Process raw data and save it to the processed directory."""
     train_images, train_target = [], []
     for i in range(6):
         train_images.append(torch.load(f"{raw_dir}/train_images_{i}.pt"))
@@ -34,17 +35,5 @@ def preprocess_data(raw_dir: str = "data/raw", processed_dir: str = "data/proces
     torch.save(test_target, f"{processed_dir}/test_target.pt")
 
 
-def corrupt_mnist() -> tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
-    """Return train and test datasets for corrupt MNIST."""
-    train_images = torch.load("data/processed/train_images.pt", weights_only=True)
-    train_target = torch.load("data/processed/train_target.pt", weights_only=True)
-    test_images = torch.load("data/processed/test_images.pt", weights_only=True)
-    test_target = torch.load("data/processed/test_target.pt", weights_only=True)
-
-    train_set = torch.utils.data.TensorDataset(train_images, train_target)
-    test_set = torch.utils.data.TensorDataset(test_images, test_target)
-    return train_set, test_set
-
-
 if __name__ == "__main__":
-    app()
+    app()  # Use Typer to handle CLI commands
