@@ -25,9 +25,6 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements_dev.txt
 
-      - name: Preprocess Data
-        run: python -m src.data preprocess-data
-
       - name: Authenticate with Google Cloud
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
@@ -37,6 +34,9 @@ jobs:
         run: |
           mkdir -p data/raw
           gsutil cp -r gs://learningras/data/raw data/raw    
+
+      - name: Preprocess Data
+        run: python -m src.data preprocess-data
 
       - name: Run tests
         run: pytest tests --cov=src --cov-report=xml
