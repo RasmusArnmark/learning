@@ -28,8 +28,8 @@ jobs:
       - name: Authenticate with Google Cloud
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-        run: gcloud auth activate-service-account --key-file="${{ secrets.GCP_CREDENTIALS }}"
-
+        run: echo "${{ secrets.GCP_CREDENTIALS }}" > /tmp/gcp-key.json && gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+        
       - name: Download Test Data
         run: |
           mkdir -p data/raw
