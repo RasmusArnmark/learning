@@ -1,7 +1,7 @@
 # Base image
 FROM python:3.11-slim AS base
 
-# Install system dependencies (this rarely changes)
+# Install system dependencies
 RUN apt-get update && \
     apt-get install --no-install-recommends -y build-essential gcc && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -9,7 +9,7 @@ RUN apt-get update && \
 # Set working directory
 WORKDIR /app
 
-# Copy dependency files first to leverage layer caching
+# Copy dependency files for caching
 COPY requirements.txt requirements.txt
 COPY requirements_dev.txt requirements_dev.txt
 
@@ -17,10 +17,10 @@ COPY requirements_dev.txt requirements_dev.txt
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt --no-cache-dir --verbose
 
-# Copy only the files needed for the build
+# Copy the rest of the project
 COPY . .
 
-# Install the package itself
+# Install the project package
 RUN pip install . --no-deps --no-cache-dir --verbose
 
 # Default entrypoint
