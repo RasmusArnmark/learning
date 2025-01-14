@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements_dev.txt
 
       - name: Preprocess Data
-        run: python src/data.py preprocess_data
+        run: python -m src.data preprocess-data
 
       - name: Authenticate with Google Cloud
         env:
