@@ -24,11 +24,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r requirements_dev.txt
-      
+
+      - name: Preprocess Data
+        run: python src/data.py preprocess_data
+
+      - name: Authenticate with Google Cloud
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        run: gcloud auth activate-service-account --key-file="${{ secrets.GCP_CREDENTIALS }}"
+
       - name: Download Test Data
         run: |
           mkdir -p data/raw
           gsutil cp -r gs://learningras/data/raw data/raw    
-      
+
       - name: Run tests
         run: pytest tests --cov=src --cov-report=xml
