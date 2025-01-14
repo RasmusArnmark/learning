@@ -1,6 +1,6 @@
 import torch
 import typer
-
+import os
 # Initialize Typer app
 app = typer.Typer()
 
@@ -11,6 +11,8 @@ def normalize(images: torch.Tensor) -> torch.Tensor:
 @app.command()
 def preprocess_data(raw_dir: str = "data/raw", processed_dir: str = "data/processed") -> None:
     """Process raw data and save it to the processed directory."""
+    os.makedirs(processed_dir, exist_ok=True)  # Ensure the processed directory exists
+
     train_images, train_target = [], []
     for i in range(6):
         train_images.append(torch.load(f"{raw_dir}/train_images_{i}.pt"))

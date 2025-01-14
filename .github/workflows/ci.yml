@@ -39,7 +39,10 @@ jobs:
         run: |
           mkdir -p data/raw
           gsutil cp -r gs://learningras/data/raw/* data/raw/
-          
+      
+      - name: Create Processed Directory
+        run: mkdir -p data/processed
+
       - name: Preprocess Data
         run: python -m src.data --raw-dir data/raw --processed-dir data/processed
         
