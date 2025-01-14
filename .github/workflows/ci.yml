@@ -35,9 +35,6 @@ jobs:
       - name: Configure gcloud
         run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Preprocess Data
-        run: python -m src.data preprocess-data
-
       - name: Download Test Data
         run: |
           mkdir -p data/raw
