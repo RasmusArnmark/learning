@@ -14,7 +14,7 @@ import os
 wandb.login(key=os.getenv("WANDB_API_KEY"))
 
 app = typer.Typer()
-
+a = 1
 def train(lr: float = 0.001, batch_size: int = 32, epochs: int = 5) -> None:
     """Train a model on MNIST."""
     print("Training day and night")
