@@ -1,12 +1,13 @@
 import torch
 import typer
 
+app = typer.Typer()
 
 def normalize(images: torch.Tensor) -> torch.Tensor:
     """Normalize images."""
     return (images - images.mean()) / images.std()
 
-
+@app.command()
 def preprocess_data(raw_dir: str = "data/raw", processed_dir: str = "data/processed") -> None:
     """Process raw data and save it to processed directory."""
     train_images, train_target = [], []
@@ -40,11 +41,10 @@ def corrupt_mnist() -> tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]
     test_images = torch.load("data/processed/test_images.pt", weights_only=True)
     test_target = torch.load("data/processed/test_target.pt", weights_only=True)
 
-
     train_set = torch.utils.data.TensorDataset(train_images, train_target)
     test_set = torch.utils.data.TensorDataset(test_images, test_target)
     return train_set, test_set
 
 
 if __name__ == "__main__":
-    typer.run(preprocess_data)
+    app()
